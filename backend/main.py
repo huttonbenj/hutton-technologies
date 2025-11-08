@@ -5,6 +5,10 @@ from typing import List, Optional
 from datetime import datetime
 import uvicorn
 import os
+from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import IntegrityError
 
 app = FastAPI(
     title="Hutton Technologies API",
@@ -23,6 +27,22 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Database setup
+DATABASE_URL = "sqlite:///./waitlist.db"
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+# Database models
+class WaitlistDB(Base):
+    __tablename__ = "waitlist"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
+# Create tables
+Base.metadata.create_all(bind=engine)
 
 # Data models
 class ContactMessage(BaseModel):
@@ -180,31 +200,48 @@ async def get_contact_messages():
 @app.post("/api/waitlist")
 async def join_waitlist(signup: WaitlistSignup):
     """Add email to waitlist"""
-    # Check if email already exists
-    if any(entry["email"] == signup.email for entry in waitlist_emails):
+    db = SessionLocal()
+    try:
+        # Check if email already exists
+        existing = db.query(WaitlistDB).filter(WaitlistDB.email == signup.email).first()
+        if existing:
+            return {
+                "success": True,
+                "message": "You're already on the waitlist!",
+                "already_subscribed": True
+            }
+        
+        # Add to database
+        new_entry = WaitlistDB(email=signup.email)
+        db.add(new_entry)
+        db.commit()
+        
         return {
             "success": True,
-            "message": "You're already on the waitlist!",
-            "already_subscribed": True
+            "message": "Welcome to the waitlist! We'll notify you when we launch.",
+            "already_subscribed": False
         }
-    
-    # Add to waitlist
-    entry = {
-        "email": signup.email,
-        "timestamp": datetime.now().isoformat()
-    }
-    waitlist_emails.append(entry)
-    
-    return {
-        "success": True,
-        "message": "Welcome to the waitlist! We'll notify you when we launch.",
-        "already_subscribed": False
-    }
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        db.close()
 
 @app.get("/api/waitlist")
 async def get_waitlist():
     """Get all waitlist signups (admin endpoint)"""
-    return waitlist_emails
+    db = SessionLocal()
+    try:
+        entries = db.query(WaitlistDB).order_by(WaitlistDB.timestamp.desc()).all()
+        return [
+            {
+                "email": entry.email,
+                "timestamp": entry.timestamp.isoformat()
+            }
+            for entry in entries
+        ]
+    finally:
+        db.close()
 
 @app.get("/health")
 async def health_check():
