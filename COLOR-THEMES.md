@@ -1,6 +1,7 @@
 # Color Theme Options 🎨
 
 ## Current Theme: Cyberpunk 🌃⚡
+
 Neon pink, electric blue, and purple with dark backgrounds - futuristic and bold!
 
 ## How to Change Colors
@@ -12,7 +13,9 @@ Edit `frontend/tailwind.config.ts` and replace the `primary` color values (lines
 ## Available Color Schemes
 
 ### 1. 💜 Purple/Violet (CURRENT)
+
 **Modern, Innovative, Tech-forward**
+
 ```typescript
 primary: {
   50: '#faf5ff',
@@ -29,7 +32,9 @@ primary: {
 ```
 
 ### 2. 🟢 Emerald Green
+
 **Growth, Sustainability, Fresh**
+
 ```typescript
 primary: {
   50: '#ecfdf5',
@@ -46,7 +51,9 @@ primary: {
 ```
 
 ### 3. 🟠 Orange/Amber
+
 **Energy, Creativity, Bold**
+
 ```typescript
 primary: {
   50: '#fffbeb',
@@ -63,7 +70,9 @@ primary: {
 ```
 
 ### 4. 🔵 Blue (Original)
+
 **Trust, Professional, Stable**
+
 ```typescript
 primary: {
   50: '#f0f9ff',
@@ -80,7 +89,9 @@ primary: {
 ```
 
 ### 5. 🔴 Rose/Pink
+
 **Creative, Modern, Friendly**
+
 ```typescript
 primary: {
   50: '#fff1f2',
@@ -97,7 +108,9 @@ primary: {
 ```
 
 ### 6. 🌊 Cyan/Teal
+
 **Technology, Innovation, Cool**
+
 ```typescript
 primary: {
   50: '#ecfeff',
@@ -114,7 +127,9 @@ primary: {
 ```
 
 ### 7. 🟣 Indigo
+
 **Professional, Trustworthy, Deep**
+
 ```typescript
 primary: {
   50: '#eef2ff',
@@ -131,7 +146,9 @@ primary: {
 ```
 
 ### 8. ⚫ Slate/Gray
+
 **Sophisticated, Minimal, Modern**
+
 ```typescript
 primary: {
   50: '#f8fafc',
@@ -163,11 +180,12 @@ Visit [Tailwind Color Generator](https://uicolors.app/create) to create your own
 
 ---
 
-**Current Theme:** 💜 Purple/Violet - Visit http://localhost:3000 to see it live!
-
+**Current Theme:** 💜 Purple/Violet - Visit <http://localhost:3000> to see it live!
 
 ## Cyberpunk Features
+
 The cyberpunk theme includes special effects:
+
 - 🌆 Grid background pattern
 - ⚡ Neon glow effects on all elements
 - 🎭 Scanline overlay effect
@@ -176,6 +194,7 @@ The cyberpunk theme includes special effects:
 - ✨ Glowing borders and shadows
 
 ### Cyberpunk Colors (CURRENT)
+
 ```typescript
 primary: {
   50: '#fef1f9',

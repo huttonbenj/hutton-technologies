@@ -28,6 +28,9 @@ class ContactMessage(BaseModel):
     company: Optional[str] = None
     phone: Optional[str] = None
 
+class WaitlistSignup(BaseModel):
+    email: EmailStr
+
 class Service(BaseModel):
     id: int
     title: str
@@ -43,6 +46,7 @@ class TeamMember(BaseModel):
 
 # In-memory storage (replace with database in production)
 contact_messages: List[ContactMessage] = []
+waitlist_emails: List[dict] = []
 
 # Sample data
 services = [
@@ -168,6 +172,35 @@ async def submit_contact(message: ContactMessage):
 async def get_contact_messages():
     """Get all contact messages (admin endpoint)"""
     return contact_messages
+
+@app.post("/api/waitlist")
+async def join_waitlist(signup: WaitlistSignup):
+    """Add email to waitlist"""
+    # Check if email already exists
+    if any(entry["email"] == signup.email for entry in waitlist_emails):
+        return {
+            "success": True,
+            "message": "You're already on the waitlist!",
+            "already_subscribed": True
+        }
+    
+    # Add to waitlist
+    entry = {
+        "email": signup.email,
+        "timestamp": datetime.now().isoformat()
+    }
+    waitlist_emails.append(entry)
+    
+    return {
+        "success": True,
+        "message": "Welcome to the waitlist! We'll notify you when we launch.",
+        "already_subscribed": False
+    }
+
+@app.get("/api/waitlist")
+async def get_waitlist():
+    """Get all waitlist signups (admin endpoint)"""
+    return waitlist_emails
 
 @app.get("/health")
 async def health_check():

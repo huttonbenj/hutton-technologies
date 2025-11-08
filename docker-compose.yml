@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - CORS_ORIGINS=https://huttontechnologies.com,https://www.huttontechnologies.com,http://localhost:3000
+    restart: unless-stopped
+    networks:
+      - hutton-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=https://api.huttontechnologies.com
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - hutton-network
+
+networks:
+  hutton-network:
+    driver: bridge

@@ -32,6 +32,10 @@ export interface ContactMessage {
   phone?: string;
 }
 
+export interface WaitlistSignup {
+  email: string;
+}
+
 export const api = {
   // Services
   getServices: async (): Promise<Service[]> => {
@@ -58,6 +62,12 @@ export const api = {
   // Contact
   submitContact: async (message: ContactMessage) => {
     const response = await apiClient.post('/api/contact', message);
+    return response.data;
+  },
+
+  // Waitlist
+  joinWaitlist: async (signup: WaitlistSignup) => {
+    const response = await apiClient.post('/api/waitlist', signup);
     return response.data;
   },
 };

@@ -1,17 +1,42 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Rocket, Mail, Bell, Sparkles, Zap } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, Bell, Sparkles, Zap, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import api from '@/lib/api';
 
 export default function ComingSoon() {
   const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error' | 'already_subscribed'>('idle');
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
-    setEmail('');
+    setIsLoading(true);
+    setStatus('idle');
+
+    try {
+      const response = await api.joinWaitlist({ email });
+      setStatus(response.already_subscribed ? 'already_subscribed' : 'success');
+      setMessage(response.message);
+      if (!response.already_subscribed) {
+        setEmail('');
+      }
+      setTimeout(() => {
+        setStatus('idle');
+        setMessage('');
+      }, 5000);
+    } catch (error) {
+      console.error('Error joining waitlist:', error);
+      setStatus('error');
+      setMessage('Failed to join waitlist. Please try again.');
+      setTimeout(() => {
+        setStatus('idle');
+        setMessage('');
+      }, 5000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -89,17 +114,41 @@ export default function ComingSoon() {
                   />
                 </div>
 
-                {isSubmitted ? (
-                  <div className="bg-cyber-pink/10 border-2 border-cyber-pink text-white py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,0,128,0.4)]">
-                    <Sparkles className="w-5 h-5 text-cyber-pink" />
-                    <span className="font-semibold">Welcome to the future!</span>
+                {status === 'success' && (
+                  <div className="bg-green-500/20 border-2 border-green-400 text-white py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(34,197,94,0.4)] animate-fade-in">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="font-semibold">{message}</span>
                   </div>
-                ) : (
+                )}
+
+                {status === 'already_subscribed' && (
+                  <div className="bg-cyber-blue/20 border-2 border-cyber-blue text-white py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.4)] animate-fade-in">
+                    <Sparkles className="w-5 h-5 text-cyber-blue" />
+                    <span className="font-semibold">{message}</span>
+                  </div>
+                )}
+
+                {status === 'error' && (
+                  <div className="bg-red-500/20 border-2 border-red-400 text-white py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,68,68,0.4)] animate-fade-in">
+                    <AlertCircle className="w-5 h-5 text-red-400" />
+                    <span className="font-semibold">{message}</span>
+                  </div>
+                )}
+
+                {status === 'idle' && (
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-cyber-pink to-cyber-purple text-white py-4 rounded-xl font-bold uppercase tracking-wider hover:from-cyber-purple hover:to-cyber-blue transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(255,0,128,0.4)] hover:shadow-[0_0_50px_rgba(0,240,255,0.6)]"
+                    disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-cyber-pink to-cyber-purple text-white py-4 rounded-xl font-bold uppercase tracking-wider hover:from-cyber-purple hover:to-cyber-blue transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(255,0,128,0.4)] hover:shadow-[0_0_50px_rgba(0,240,255,0.6)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
                   >
-                    Get Early Access
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <span>Joining...</span>
+                      </>
+                    ) : (
+                      'Get Early Access'
+                    )}
                   </button>
                 )}
               </form>
@@ -128,24 +177,42 @@ export default function ComingSoon() {
           {/* Social Links with neon effect */}
           <div className="mt-16 animate-fade-in" style={{ animationDelay: '1s' }}>
             <p className="text-gray-400 mb-4 uppercase tracking-widest text-sm">Connect With Us</p>
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center gap-4 flex-wrap">
               <a
-                href="#"
+                href="https://www.threads.com/@hutton.benj?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-12 h-12 bg-black/60 backdrop-blur-sm rounded-lg flex items-center justify-center border-2 border-cyber-pink/30 hover:border-cyber-pink hover:shadow-[0_0_20px_rgba(255,0,128,0.5)] transition-all duration-300 hover:scale-110 group"
+                aria-label="Threads"
               >
-                <span className="text-white group-hover:text-cyber-pink transition-colors">𝕏</span>
+                <span className="text-white group-hover:text-cyber-pink transition-colors text-xl">@</span>
               </a>
               <a
-                href="#"
-                className="w-12 h-12 bg-black/60 backdrop-blur-sm rounded-lg flex items-center justify-center border-2 border-cyber-blue/30 hover:border-cyber-blue hover:shadow-[0_0_20px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-110 group"
-              >
-                <span className="text-white group-hover:text-cyber-blue transition-colors">in</span>
-              </a>
-              <a
-                href="#"
+                href="https://www.instagram.com/hutton.benj/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-12 h-12 bg-black/60 backdrop-blur-sm rounded-lg flex items-center justify-center border-2 border-cyber-purple/30 hover:border-cyber-purple hover:shadow-[0_0_20px_rgba(189,0,255,0.5)] transition-all duration-300 hover:scale-110 group"
+                aria-label="Instagram"
               >
-                <span className="text-white group-hover:text-cyber-purple transition-colors">@</span>
+                <span className="text-white group-hover:text-cyber-purple transition-colors text-xl">IG</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/ben-hutton-197b5780/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-black/60 backdrop-blur-sm rounded-lg flex items-center justify-center border-2 border-cyber-blue/30 hover:border-cyber-blue hover:shadow-[0_0_20px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-110 group"
+                aria-label="LinkedIn"
+              >
+                <span className="text-white group-hover:text-cyber-blue transition-colors text-xl font-bold">in</span>
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61579922382150"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-black/60 backdrop-blur-sm rounded-lg flex items-center justify-center border-2 border-cyber-pink/30 hover:border-cyber-pink hover:shadow-[0_0_20px_rgba(255,0,128,0.5)] transition-all duration-300 hover:scale-110 group"
+                aria-label="Facebook"
+              >
+                <span className="text-white group-hover:text-cyber-pink transition-colors text-xl font-bold">f</span>
               </a>
             </div>
           </div>

@@ -1,6 +1,11 @@
-# Hutton Technologies Website
+# Hutton Technologies Website 🌃⚡
 
-A modern, professional website for Hutton Technologies built with FastAPI backend and Next.js frontend.
+A cyberpunk-themed, modern website for Hutton Technologies built with FastAPI backend and Next.js frontend.
+
+**Live:** https://huttontechnologies.com
+
+![Cyberpunk Theme](https://img.shields.io/badge/theme-cyberpunk-ff0080)
+![Status](https://img.shields.io/badge/status-coming%20soon-00f0ff)
 
 ## 🚀 Features
 
