@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="cyber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff0080;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background rounded square with gradient border -->
+  <rect x="10" y="10" width="180" height="180" rx="30" fill="#0a0e1a" stroke="url(#cyber-grad)" stroke-width="4"/>
+  
+  <!-- Cyberpunk circuit patterns -->
+  <path d="M 30 50 L 50 50 L 50 40 M 170 50 L 150 50 L 150 40" stroke="url(#cyber-grad)" stroke-width="2" opacity="0.5"/>
+  <path d="M 30 150 L 50 150 L 50 160 M 170 150 L 150 150 L 150 160" stroke="url(#cyber-grad)" stroke-width="2" opacity="0.5"/>
+  
+  <!-- HT letters with cyberpunk style -->
+  <!-- H -->
+  <path d="M 50 70 L 50 130 M 50 100 L 90 100 M 90 70 L 90 130" stroke="url(#cyber-grad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- T -->
+  <path d="M 110 70 L 150 70 M 130 70 L 130 130" stroke="url(#cyber-grad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Glowing effect particles -->
+  <circle cx="45" cy="65" r="2" fill="#00f0ff" opacity="0.8"/>
+  <circle cx="155" cy="65" r="2" fill="#ff0080" opacity="0.8"/>
+  <circle cx="45" cy="135" r="2" fill="#a855f7" opacity="0.8"/>
+  <circle cx="155" cy="135" r="2" fill="#00f0ff" opacity="0.8"/>
+</svg>

@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: 'Hutton Technologies - Innovative Software Solutions',
   description: 'Leading provider of custom software development, cloud infrastructure, AI/ML solutions, and more.',
   keywords: ['software development', 'cloud infrastructure', 'AI', 'machine learning', 'mobile apps', 'DevOps', 'cybersecurity'],
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/apple-touch-icon.png',
+  },
 }
 
 export default function RootLayout({
