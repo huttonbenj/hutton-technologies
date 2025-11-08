@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1f3a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cyber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff0080;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-grad)"/>
+  
+  <!-- Cyberpunk grid pattern -->
+  <path d="M 0 0 L 1200 0 L 1200 630 L 0 630 Z M 50 50 L 1150 50 M 50 150 L 1150 150 M 50 250 L 1150 250 M 50 350 L 1150 350 M 50 450 L 1150 450 M 50 550 L 1150 550" 
+        stroke="#00f0ff" stroke-width="1" opacity="0.1"/>
+  <path d="M 50 0 L 50 630 M 250 0 L 250 630 M 450 0 L 450 630 M 650 0 L 650 630 M 850 0 L 850 630 M 1050 0 L 1050 630" 
+        stroke="#a855f7" stroke-width="1" opacity="0.1"/>
+  
+  <!-- Circuit board patterns -->
+  <g opacity="0.3">
+    <path d="M 100 100 L 150 100 L 150 50 M 1100 100 L 1050 100 L 1050 50" stroke="url(#cyber-grad)" stroke-width="2"/>
+    <path d="M 100 530 L 150 530 L 150 580 M 1100 530 L 1050 530 L 1050 580" stroke="url(#cyber-grad)" stroke-width="2"/>
+    <circle cx="150" cy="100" r="4" fill="#00f0ff"/>
+    <circle cx="1050" cy="100" r="4" fill="#ff0080"/>
+    <circle cx="150" cy="530" r="4" fill="#a855f7"/>
+    <circle cx="1050" cy="530" r="4" fill="#00f0ff"/>
+  </g>
+  
+  <!-- Main logo square -->
+  <g transform="translate(200, 180)">
+    <rect x="0" y="0" width="270" height="270" rx="30" fill="#0a0e1a" stroke="url(#cyber-grad)" stroke-width="6" filter="url(#glow)"/>
+    
+    <!-- HT letters -->
+    <g transform="translate(30, 60)">
+      <!-- H -->
+      <path d="M 20 30 L 20 180 M 20 105 L 95 105 M 95 30 L 95 180" 
+            stroke="url(#cyber-grad)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+      
+      <!-- T -->
+      <path d="M 120 30 L 210 30 M 165 30 L 165 180" 
+            stroke="url(#cyber-grad)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+    </g>
+    
+    <!-- Decorative elements -->
+    <circle cx="30" cy="30" r="6" fill="#00f0ff" opacity="0.8" filter="url(#glow)"/>
+    <circle cx="240" cy="30" r="6" fill="#ff0080" opacity="0.8" filter="url(#glow)"/>
+    <circle cx="30" cy="240" r="6" fill="#a855f7" opacity="0.8" filter="url(#glow)"/>
+    <circle cx="240" cy="240" r="6" fill="#00f0ff" opacity="0.8" filter="url(#glow)"/>
+  </g>
+  
+  <!-- Company name -->
+  <text x="520" y="260" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="bold" fill="url(#cyber-grad)" filter="url(#glow)">
+    HUTTON
+  </text>
+  <text x="520" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="300" fill="#a855f7" letter-spacing="8">
+    TECHNOLOGIES
+  </text>
+  
+  <!-- Tagline -->
+  <text x="520" y="410" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#00f0ff" opacity="0.8">
+    Building the Future
+  </text>
+  
+  <!-- Decorative scanline effect -->
+  <rect x="0" y="0" width="1200" height="630" fill="url(#scanlines)" opacity="0.05"/>
+  
+  <!-- Glowing particles -->
+  <g opacity="0.6" filter="url(#glow)">
+    <circle cx="800" cy="150" r="3" fill="#00f0ff"/>
+    <circle cx="900" cy="200" r="2" fill="#ff0080"/>
+    <circle cx="750" cy="450" r="3" fill="#a855f7"/>
+    <circle cx="950" cy="480" r="2" fill="#00f0ff"/>
+    <circle cx="850" cy="520" r="3" fill="#ff0080"/>
+  </g>
+</svg>
