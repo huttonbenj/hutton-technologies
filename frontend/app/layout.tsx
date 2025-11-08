@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: 'Hutton Technologies',
     images: [
       {
-        url: 'https://huttontechnologies.com/og-image.svg',
+        url: 'https://huttontechnologies.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Hutton Technologies - Cyberpunk themed tech logo',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hutton Technologies - Innovative Software Solutions',
     description: 'Building the future with cutting-edge software development, AI/ML solutions, and cloud infrastructure.',
-    images: ['https://huttontechnologies.com/og-image.svg'],
+    images: ['https://huttontechnologies.com/og-image.png'],
   },
 }
 
